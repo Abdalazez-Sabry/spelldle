@@ -12,10 +12,13 @@
 
 	const { handleSubmitRoot }: { handleSubmitRoot: (submitted: string) => void } = $props();
 
-	const MAX_WORD_SIZE = 20;
-	const MIN_WORD_SIZE = 3;
+	const MAX_WORD_SIZE = 18;
+	const MIN_WORD_SIZE = 2;
+
 	let word = $state('');
 	let cursorIndex = $state(0);
+
+	const placeholderWord: SpellCharType[] = Array(4).fill({ char: ' ', type: 'unchecked' });
 
 	function handleKey(e: KeyboardEvent) {
 		if (e.key == 'Enter') {
@@ -27,7 +30,7 @@
 			return;
 		}
 
-		if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key)) {
+		if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key) && word.length < MAX_WORD_SIZE) {
 			// insert at cursor
 			word = word.slice(0, cursorIndex) + e.key.toUpperCase() + word.slice(cursorIndex);
 			cursorIndex += 1;
@@ -43,19 +46,26 @@
 		}
 	}
 
+	function stopListenningToInputs() {
+		window.removeEventListener('keydown', handleKey);
+	}
+
 	onMount(() => {
 		window.addEventListener('keydown', handleKey);
 		return () => {
-			window.removeEventListener('keydown', handleKey);
+			stopListenningToInputs();
 		};
 	});
 
-	function handleSubmit(subm: string) {
-		handleSubmitRoot(subm);
-		word = '';
+	function handleSubmit(toCheck: string) {
+		if (word.length >= MIN_WORD_SIZE) {
+			word = '';
+			cursorIndex = 0;
+			handleSubmitRoot(toCheck);
+		}
 	}
 </script>
 
-<SpellRow word={toUncheckedSpellChar(word)} {cursorIndex} />
+<SpellRow word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord} {cursorIndex} />
 
 <Button type="submit" class="w-48 self-end" onclick={() => handleSubmit(word)}>Check</Button>

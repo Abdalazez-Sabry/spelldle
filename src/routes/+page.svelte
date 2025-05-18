@@ -1,13 +1,19 @@
 <script lang="ts">
-	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
+	import {
+		Tabs,
+		TabsContent as div,
+		TabsList,
+		TabsTrigger,
+		TabsContent
+	} from '$lib/components/ui/tabs';
 	import SpellWordCard from './SpellWordCard.svelte';
 
 	const tabsValues = { daily: 'Daily', infinite: 'Infinite' };
 </script>
 
-<main class="flex min-h-svh w-svw flex-col items-center justify-center gap-10">
+<main class="flex min-h-svh max-w-svw flex-col items-center justify-center gap-10">
 	<h1 class="text-8xl">Spelldle</h1>
-	<Tabs value={tabsValues.daily} class="flex w-[800px] flex-col gap-10">
+	<Tabs value={tabsValues.daily} class="flex max-w-[1280px] flex-col gap-10">
 		<TabsList class="h-auto w-full">
 			<TabsTrigger class="flex-1 p-4 text-3xl" value={tabsValues.daily}
 				>{tabsValues.daily}</TabsTrigger

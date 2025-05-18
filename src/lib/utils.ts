@@ -13,6 +13,14 @@ export function toUncheckedSpellChar(str: string): SpellCharType[] {
 	}));
 }
 
+
+export function toCorrectSpellChar(str: string): SpellCharType[] {
+	return str.split('').map((char) => ({
+		char,
+		type: 'correct'
+	}));
+}
+
 export function toEvaluatedSpellChar(toCheck: string, target: string): SpellCharType[] {
 	const result: SpellCharType[] = toCheck.split('').map((char) => ({
 		char,
