@@ -21,14 +21,17 @@
 	const placeholderWord: SpellCharType[] = Array(4).fill({ char: ' ', type: 'unchecked' });
 
 	function handleKey(e: KeyboardEvent) {
+		if (e.ctrlKey || e.metaKey || e.altKey) {
+			return;
+		}
+
 		if (e.key == 'Enter') {
 			handleSubmit(word);
 			return;
 		}
 
-		if (e.ctrlKey || e.metaKey || e.altKey) {
-			return;
-		}
+		const el = document.activeElement;
+		if (el instanceof HTMLElement) el.blur();
 
 		if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key) && word.length < MAX_WORD_SIZE) {
 			// insert at cursor

@@ -7,7 +7,11 @@
 		type: 'notInWord' | 'wrongPosition' | 'correct' | 'unchecked';
 	};
 
-	const { word, cursorIndex }: { word: SpellCharType[]; cursorIndex?: number } = $props();
+	const {
+		word,
+		cursorIndex,
+		minSize
+	}: { word: SpellCharType[]; cursorIndex?: number; minSize?: number } = $props();
 </script>
 
 <!-- {#if word.length == 0}
@@ -25,4 +29,14 @@
 			]}>{spell.char}</span
 		>
 	{/each}
+	{#if minSize}
+		{#each Array(minSize - word.length) as _, i (i)}
+			<span
+				animate:flip={{ duration: 200 }}
+				class={[
+					'flex h-[4rem] w-[4rem] items-center justify-center rounded-lg border border-gray-400 p-4 text-4xl font-bold'
+				]}>{' '}</span
+			>
+		{/each}
+	{/if}
 </div>
