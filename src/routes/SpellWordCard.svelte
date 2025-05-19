@@ -30,13 +30,20 @@
 
 		previousSubmissions.unshift(toEvaluatedSpellChar(toCheck, target));
 	}
-	console.log('inside word', targetInfo);
+	function playAudio() {
+		const aud = new Audio(targetInfo.audio);
+		aud.play();
+	}
+
+	function revealAnswer() {
+		correctSpelling = true;
+	}
 </script>
 
 <div
 	class="flex w-[100svw] flex-col items-center justify-center gap-10 px-2 md:w-[80svw] lg:w-[70svw]"
 >
-	<AudtioPlayer audioUrl={targetInfo.audio} />
+	<AudtioPlayer audioUrl={targetInfo.audio} {playAudio} />
 
 	<div class="flex max-w-[80%] flex-col items-start gap-2 text-wrap">
 		<h4 class="text-muted-foreground text-lg md:text-xl">Definitions:</h4>
@@ -50,6 +57,6 @@
 	{#if correctSpelling}
 		<SpellRow word={toCorrectSpellChar(targetInfo.word.toUpperCase())} />
 	{:else}
-		<SpellInput handleSubmitRoot={handleSubmit} />
+		<SpellInput handleSubmitRoot={handleSubmit} {playAudio} {revealAnswer} />
 	{/if}
 </div>

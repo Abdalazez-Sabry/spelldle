@@ -9,10 +9,18 @@
 	import { onMount } from 'svelte';
 	import SpellRow, { type SpellCharType } from './SpellRow.svelte';
 	import { toUncheckedSpellChar } from '$lib/utils';
-	import { CornerDownLeft } from '@lucide/svelte';
+	import { CornerDownLeft, EyeOff, Flag, Flashlight } from '@lucide/svelte';
 	import { Tooltip } from '$lib/components/ui/tooltip';
 
-	const { handleSubmitRoot }: { handleSubmitRoot: (submitted: string) => void } = $props();
+	const {
+		handleSubmitRoot,
+		playAudio,
+		revealAnswer
+	}: {
+		handleSubmitRoot: (submitted: string) => void;
+		playAudio: () => void;
+		revealAnswer: () => void;
+	} = $props();
 
 	const MAX_WORD_SIZE = 18;
 	const MIN_WORD_SIZE = 2;
@@ -20,7 +28,7 @@
 	let word = $state('');
 	let cursorIndex = $state(0);
 
-	const placeholderWord: SpellCharType[] = Array(4).fill({ char: ' ', type: 'unchecked' });
+	const placeholderWord: SpellCharType[] = Array(3).fill({ char: ' ', type: 'unchecked' });
 
 	function handleKey(e: KeyboardEvent) {
 		if (e.ctrlKey || e.metaKey || e.altKey) {
@@ -32,6 +40,8 @@
 			return;
 		}
 
+		e.preventDefault();
+
 		const el = document.activeElement;
 		if (el instanceof HTMLElement) el.blur();
 
@@ -39,6 +49,10 @@
 			// insert at cursor
 			word = word.slice(0, cursorIndex) + e.key.toUpperCase() + word.slice(cursorIndex);
 			cursorIndex += 1;
+		} else if (e.key === ' ') {
+			playAudio();
+		} else if (e.key === 'Escape') {
+			revealAnswer();
 		} else if (e.key === 'Backspace' && cursorIndex > 0) {
 			word = word.slice(0, cursorIndex - 1) + word.slice(cursorIndex);
 			cursorIndex -= 1;
@@ -73,8 +87,13 @@
 
 <SpellRow word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord} {cursorIndex} />
 
-<div class="flex w-[360px] max-w-full justify-end md:w-[600px]">
-	<Tooltip text="Check Spelling">
+<div class="flex w-[360px] max-w-full justify-between md:w-[600px]">
+	<Tooltip text="Reveal Answer (Esc)">
+		<Button variant="icon" class="  self-end [&_svg]:size-10" onclick={() => revealAnswer()}>
+			<Flashlight />
+		</Button>
+	</Tooltip>
+	<Tooltip text="Check Spelling (Enter)">
 		<Button variant="icon" class="  self-end [&_svg]:size-10" onclick={() => handleSubmit(word)}>
 			<CornerDownLeft />
 		</Button>

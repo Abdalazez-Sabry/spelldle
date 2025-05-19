@@ -53,7 +53,7 @@
 	<h1 class="text-7xl font-bold">Infinite</h1>
 </div>
 
-<DifficultyToggle bind:difficulty />
+<DifficultyToggle bind:difficulty {getNextWord} />
 
 <Separator class="w-full max-w-[520px]" />
 {#await wordInfo}

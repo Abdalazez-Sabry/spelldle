@@ -2,12 +2,18 @@
 	import { Label } from '$lib/components/ui/label';
 	import { cn } from '$lib/utils';
 	import { ToggleGroup, ToggleGroupItem } from '$lib/components/ui/toggle-group';
-	import { pushState } from '$app/navigation';
+	import { pushState, goto } from '$app/navigation';
 
-	let { difficulty = $bindable() }: { difficulty: string } = $props();
+	let {
+		difficulty = $bindable(),
+		getNextWord
+	}: { difficulty: string; getNextWord: () => Promise<void> } = $props();
 
 	function changeDifficulty(diff: string) {
-		pushState(`/infinite?difficulty=${diff}`, {});
+		pushState(`/infinite?difficulty=${diff}`, {
+			replaceState: true
+		});
+		getNextWord();
 	}
 </script>
 

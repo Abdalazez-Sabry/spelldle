@@ -4,12 +4,8 @@
 	import { onMount } from 'svelte';
 	let audio: HTMLAudioElement;
 
-	const { audioUrl }: { audioUrl: string } = $props();
+	const { audioUrl, playAudio }: { audioUrl: string; playAudio: () => void } = $props();
 
-	function playAudio() {
-		audio.currentTime = 0;
-		audio.play();
-	}
 	onMount(() => {
 		audio.play();
 	});
