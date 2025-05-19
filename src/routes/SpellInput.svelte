@@ -107,6 +107,12 @@
 		type="text"
 		bind:this={keybaordOpenerInput}
 		bind:value={word}
+		onkeydown={(e) => {
+			e.preventDefault();
+			if (e.key === 'Enter') {
+				handleSubmit(word);
+			}
+		}}
 		oninput={(inp) => {
 			word = inp.currentTarget.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
 			inp.preventDefault();

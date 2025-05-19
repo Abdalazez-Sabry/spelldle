@@ -30,7 +30,6 @@
 {#await getDailyWord()}
 	<div>loading..</div>
 {:then wordInfo}
-	<h1>no ?</h1>
 	<div class="flex flex-col items-center gap-10">
 		<SpellWordCard targetInfo={wordInfo} bind:correctSpelling bind:previousSubmissions />
 		{#if correctSpelling}

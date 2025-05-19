@@ -51,7 +51,7 @@
 	}
 
 	$effect(() => {
-		if (correctSpelling) {
+		if (correctSpelling && !window.matchMedia('(pointer: coarse)').matches) {
 			window.addEventListener('keydown', handleEndGameInput);
 		} else {
 			window.removeEventListener('keydown', handleEndGameInput);
