@@ -26,7 +26,7 @@
 
 <div class="flex min-h-svh max-w-svw flex-col items-center justify-between gap-5">
 	<Navbar />
-	<main class="flex w-full flex-1 flex-col items-center justify-center gap-10 pt-10">
+	<main class="flex w-full flex-1 flex-col items-center justify-start gap-10 pt-10">
 		{@render children()}
 	</main>
 	<Footer />

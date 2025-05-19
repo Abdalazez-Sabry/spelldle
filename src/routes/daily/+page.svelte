@@ -8,6 +8,7 @@
 	import PerviousSubmissions from '../PerviousSubmissions.svelte';
 	import type { SpellCharType } from '../SpellRow.svelte';
 	import { scale, slide } from 'svelte/transition';
+	import { getDailyWord } from '$lib/spelldle';
 
 	let correctSpelling = $state(false);
 	let previousSubmissions: SpellCharType[][] = $state([]);
@@ -27,7 +28,7 @@
 </div>
 <Separator class="w-full max-w-[520px]" />
 <div class="flex flex-col items-center gap-10">
-	<SpellWordCard targetSpelling={'accommodate'} bind:correctSpelling bind:previousSubmissions />
+	<SpellWordCard targetSpelling={getDailyWord()} bind:correctSpelling bind:previousSubmissions />
 	{#if correctSpelling}
 		<div class="flex flex-col items-center gap-2" transition:slide={{ duration: 200 }}>
 			<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">

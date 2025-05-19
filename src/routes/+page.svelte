@@ -5,7 +5,7 @@
 	import SpellWordCard from './SpellWordCard.svelte';
 </script>
 
-<div class="flex flex-col gap-10 px-4">
+<div class="flex flex-1 flex-col justify-center gap-10 px-4">
 	<SpelldleAnimatedLogo />
 	<p class="text-muted-foreground md:text-lg">
 		A game where the audio of a random word is played, and your goal is to write that word correctly
