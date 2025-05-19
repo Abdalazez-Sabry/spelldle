@@ -1,10 +1,6 @@
 <script lang="ts">
 	import { cn, toEvaluatedSpellChar } from '$lib/utils';
 	import gsap from 'gsap';
-	import TextPlugin from 'gsap/TextPlugin';
-	import { onMount } from 'svelte';
-	import { flip } from 'svelte/animate';
-	import { scale } from 'svelte/transition';
 
 	const SPELLDLE = 'SPELLDLE';
 	const ITER_WORDS = ['SPELLDLE', 'SPIDLE', 'SPEELDLE'];

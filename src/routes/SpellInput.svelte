@@ -30,6 +30,11 @@
 
 	const placeholderWord: SpellCharType[] = Array(3).fill({ char: ' ', type: 'unchecked' });
 
+	onMount(() => {
+		const el = document.activeElement;
+		if (el instanceof HTMLElement) el.blur();
+	});
+
 	function handleKey(e: KeyboardEvent) {
 		if (e.ctrlKey || e.metaKey || e.altKey) {
 			return;
@@ -40,8 +45,6 @@
 			return;
 		}
 
-		e.preventDefault();
-
 		const el = document.activeElement;
 		if (el instanceof HTMLElement) el.blur();
 
@@ -49,8 +52,6 @@
 			// insert at cursor
 			word = word.slice(0, cursorIndex) + e.key.toUpperCase() + word.slice(cursorIndex);
 			cursorIndex += 1;
-		} else if (e.key === ' ') {
-			playAudio();
 		} else if (e.key === 'Escape') {
 			revealAnswer();
 		} else if (e.key === 'Backspace' && cursorIndex > 0) {

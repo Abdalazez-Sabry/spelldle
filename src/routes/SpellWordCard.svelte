@@ -9,6 +9,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import type { WordInfo } from '$lib/spelldle';
 	import AudtioPlayer from './AudtioPlayer.svelte';
+	import { onMount } from 'svelte';
 
 	let {
 		targetInfo,
@@ -38,6 +39,24 @@
 	function revealAnswer() {
 		correctSpelling = true;
 	}
+
+	function playAudioOnSpace(e: KeyboardEvent) {
+		if (e.ctrlKey || e.metaKey || e.altKey) {
+			return;
+		}
+		e.preventDefault();
+
+		if (e.key == ' ') {
+			playAudio();
+		}
+	}
+
+	onMount(() => {
+		window.addEventListener('keydown', playAudioOnSpace);
+		return () => {
+			window.removeEventListener('keydown', playAudioOnSpace);
+		};
+	});
 </script>
 
 <div

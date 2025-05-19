@@ -38,6 +38,25 @@
 		previousSubmissions = [];
 		correctSpelling = false;
 	}
+
+	function handleEndGameInput(e: KeyboardEvent) {
+		if (e.ctrlKey || e.metaKey || e.altKey) {
+			return;
+		}
+
+		if (e.key == 'Enter') {
+			e.preventDefault();
+			getNextWord();
+		}
+	}
+
+	$effect(() => {
+		if (correctSpelling) {
+			window.addEventListener('keydown', handleEndGameInput);
+		} else {
+			window.removeEventListener('keydown', handleEndGameInput);
+		}
+	});
 </script>
 
 <div class="relative flex h-fit w-full max-w-[600px] flex-row items-center justify-center gap-10">
@@ -67,14 +86,13 @@
 					<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">
 						Correct <PartyPopper class="size-10 md:size-15" />
 					</h5>
-					<Button
-						variant="default"
-						class=" hover:text-accent text-2xl [&_svg]:size-5"
-						{@attach (el: any) => {
-							setTimeout(() => el.focus(), 200);
-						}}
-						onclick={getNextWord}>Next Word<CircleChevronLeft /></Button
-					>
+					<Tooltip text="Get Next Word (Enter)">
+						<Button
+							variant="default"
+							class=" hover:text-accent text-2xl [&_svg]:size-5"
+							onclick={getNextWord}>Next Word<CircleChevronLeft /></Button
+						>
+					</Tooltip>
 				</div>
 			{/if}
 			<PerviousSubmissions {previousSubmissions} />
