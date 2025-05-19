@@ -5,18 +5,21 @@
 	import SpellWordCard from './SpellWordCard.svelte';
 </script>
 
-<main class="flex min-h-svh max-w-svw flex-col items-center justify-center gap-10 pt-10">
-	<!-- <h1 class=" text-7xl font-bold">Spelldle</h1> -->
+<div class="flex flex-col gap-10 px-4">
 	<SpelldleAnimatedLogo />
+	<p class="text-muted-foreground md:text-lg">
+		A game where the audio of a random word is played, and your goal is to write that word correctly
+	</p>
 	<div class="flex flex-col items-center justify-center gap-4 px-2">
 		<h4 class="text-2xl md:text-4xl">Choose Mode</h4>
-		<a href="/daily">
-			<Button variant="link" class="text-xl text-white md:text-3xl" data-direction="backword"
-				>Daily</Button
-			>
-		</a>
-		<a href="/infinite">
-			<Button variant="link" class="text-xl text-white md:text-3xl">Infinite</Button>
-		</a>
+		<Button
+			variant="link"
+			href="/daily"
+			class="text-muted-foreground text-xl md:text-3xl"
+			data-direction="backword">Daily</Button
+		>
+		<Button variant="link" class="text-muted-foreground text-xl md:text-3xl" href="/infinite"
+			>Infinite</Button
+		>
 	</div>
-</main>
+</div>

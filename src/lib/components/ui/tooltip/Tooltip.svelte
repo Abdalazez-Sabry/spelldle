@@ -8,7 +8,11 @@
 <TT.Provider>
 	<TT.Root delayDuration={0}>
 		<TT.Trigger>
-			{@render children()}
+			{#snippet child({ props })}
+				<div {...props}>
+					{@render children()}
+				</div>
+			{/snippet}
 		</TT.Trigger>
 		<TT.Content>
 			{text}

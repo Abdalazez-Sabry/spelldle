@@ -7,12 +7,17 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import { flip } from 'svelte/animate';
 	import { fade, fly, scale, slide } from 'svelte/transition';
-	import PerviousSubmissions from './PerviousSubmissions.svelte';
+	import { Button } from '$lib/components/ui/button';
 
-	const { targetSpelling }: { targetSpelling: string } = $props();
-	let correctSpelling = $state(false);
-
-	let previousSubmissions: SpellCharType[][] = $state([]);
+	let {
+		targetSpelling,
+		correctSpelling = $bindable(),
+		previousSubmissions = $bindable()
+	}: {
+		targetSpelling: string;
+		correctSpelling: boolean;
+		previousSubmissions: SpellCharType[][];
+	} = $props();
 
 	function handleSubmit(toCheck: string) {
 		toCheck = toCheck.toLocaleUpperCase();
@@ -29,12 +34,14 @@
 <div
 	class="flex w-[100svw] flex-col items-center justify-center gap-10 px-2 md:w-[80svw] lg:w-[70svw]"
 >
-	<div class="flex flex-row items-center gap-2">
-		<Icon icon="material-symbols:play-circle-outline" width="32" height="32" />
-		<h3 class="text-xl md:text-3xl">Listen Again</h3>
-	</div>
+	<Button class="text-muted-foreground text-xl md:text-3xl [&_svg]:size-10" variant="ghost">
+		<span class="inline-block size-10">
+			<Icon icon="material-symbols:play-circle-outline" />
+		</span>
+		Listen Again
+	</Button>
 	<div class="flex max-w-[80%] flex-col items-start gap-2 text-wrap">
-		<h4 class="text-lg md:text-xl">Definitions:</h4>
+		<h4 class="text-muted-foreground text-lg md:text-xl">Definitions:</h4>
 		<h6 class="text-muted-foreground max-w-full text-xs text-wrap md:text-lg">
 			- (of a building or other area) provide lodging or sufficient space for.
 		</h6>
@@ -43,9 +50,7 @@
 
 	{#if correctSpelling}
 		<SpellRow word={toCorrectSpellChar(targetSpelling.toUpperCase())} />
-		<!-- <h5 class="text-6xl">Good Job</h5> -->
 	{:else}
 		<SpellInput handleSubmitRoot={handleSubmit} />
 	{/if}
-	<PerviousSubmissions {previousSubmissions} />
 </div>

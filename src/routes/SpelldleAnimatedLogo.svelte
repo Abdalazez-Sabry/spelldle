@@ -7,7 +7,7 @@
 	import { scale } from 'svelte/transition';
 
 	const SPELLDLE = 'SPELLDLE';
-	const ITER_WORDS = ['SPELLDLE', 'SPLDLE', 'SPEELDLE'];
+	const ITER_WORDS = ['SPELLDLE', 'SPIDLE', 'SPEELDLE'];
 	const WRITE_DURATION = 0.15;
 	const HOLD_DURATION = 5;
 

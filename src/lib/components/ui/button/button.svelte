@@ -12,8 +12,8 @@
 				outline:
 					'border-input bg-background hover:bg-accent hover:text-accent-foreground border shadow-sm',
 				secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm',
-				ghost: 'hover:bg-accent hover:text-accent-foreground',
-				link: 'text-primary underline-offset-4 hover:underline',
+				ghost: ' hover:text-accent !px-0',
+				link: 'text-foreground underline-offset-4 hover:underline hover:text-accent !px-0',
 				icon: 'text-muted-foreground hover:text-accent rounded px-5 py-1'
 			},
 			size: {

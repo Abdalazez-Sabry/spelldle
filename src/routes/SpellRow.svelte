@@ -34,7 +34,7 @@
 			<span
 				animate:flip={{ duration: 200 }}
 				class={[
-					'flex h-[2rem] w-[2rem] items-center justify-center rounded-lg border border-gray-400  text-xl font-bold md:h-[4rem] md:w-[4rem] md:p-4 md:text-4xl'
+					'flex h-[2rem] w-[2rem] items-center justify-center rounded-lg border border-gray-400  text-xl font-semibold md:h-[3rem] md:w-[3rem] md:text-2xl md:font-bold xl:h-[4rem] xl:w-[4rem] xl:text-4xl'
 				]}>{' '}</span
 			>
 		{/each}
