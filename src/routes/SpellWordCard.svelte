@@ -67,7 +67,7 @@
 	<div class="flex max-w-[80%] flex-col items-start gap-2 text-wrap">
 		<h4 class="text-muted-foreground text-lg md:text-xl">Definitions:</h4>
 		{#each targetInfo.definitions as defin}
-			<h6 class="text-muted-foreground max-w-full text-xs text-wrap md:text-lg">
+			<h6 class="text-muted-foreground max-w-full text-xs text-wrap md:text-xl">
 				- {defin}
 			</h6>
 		{/each}

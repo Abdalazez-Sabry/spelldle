@@ -9,7 +9,7 @@
 	import { onMount } from 'svelte';
 	import SpellRow, { type SpellCharType } from './SpellRow.svelte';
 	import { toUncheckedSpellChar } from '$lib/utils';
-	import { CornerDownLeft, EyeOff, Flag, Flashlight } from '@lucide/svelte';
+	import { CornerDownLeft, EyeOff, Flag, Flashlight, Keyboard } from '@lucide/svelte';
 	import { Tooltip } from '$lib/components/ui/tooltip';
 
 	const {
@@ -27,12 +27,15 @@
 
 	let word = $state('');
 	let cursorIndex = $state(0);
+	let isTouch = $state(false);
+	let keybaordOpenerInput: HTMLInputElement | null = $state(null);
 
 	const placeholderWord: SpellCharType[] = Array(3).fill({ char: ' ', type: 'unchecked' });
 
 	onMount(() => {
 		const el = document.activeElement;
 		if (el instanceof HTMLElement) el.blur();
+		isTouch = window.matchMedia('(pointer: coarse)').matches;
 	});
 
 	function handleKey(e: KeyboardEvent) {
@@ -88,12 +91,24 @@
 
 <SpellRow word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord} {cursorIndex} />
 
-<div class="flex w-[360px] max-w-full justify-between md:w-[600px]">
+<div class="flex w-[200px] max-w-full justify-between md:w-[320px]">
 	<Tooltip text="Reveal Answer (Esc)">
 		<Button variant="icon" class="  self-end [&_svg]:size-10" onclick={() => revealAnswer()}>
 			<Flashlight />
 		</Button>
 	</Tooltip>
+	{#if isTouch}
+		<Tooltip text="Open keyboard">
+			<Button
+				variant="icon"
+				class="  self-end [&_svg]:size-10"
+				onclick={() => keybaordOpenerInput?.focus()}
+			>
+				<Keyboard />
+			</Button>
+		</Tooltip>
+	{/if}
+	<input bind:this={keybaordOpenerInput} class="invisible absolute m-0 h-0 w-0 p-0" />
 	<Tooltip text="Check Spelling (Enter)">
 		<Button variant="icon" class="  self-end [&_svg]:size-10" onclick={() => handleSubmit(word)}>
 			<CornerDownLeft />
