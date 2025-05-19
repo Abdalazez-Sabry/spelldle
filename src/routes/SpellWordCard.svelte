@@ -26,17 +26,19 @@
 	}
 </script>
 
-<div class="flex w-full flex-col items-center justify-center gap-10">
+<div
+	class="flex w-[100svw] flex-col items-center justify-center gap-10 px-2 md:w-[80svw] lg:w-[70svw]"
+>
 	<div class="flex flex-row items-center gap-2">
 		<Icon icon="material-symbols:play-circle-outline" width="32" height="32" />
-		<h3 class="text-3xl">Listen Again</h3>
+		<h3 class="text-xl md:text-3xl">Listen Again</h3>
 	</div>
-	<div class="flex flex-col items-start gap-2">
-		<h4 class="text-xl">Definitions:</h4>
-		<h6 class="text-muted-foreground text-md">
+	<div class="flex max-w-[80%] flex-col items-start gap-2 text-wrap">
+		<h4 class="text-lg md:text-xl">Definitions:</h4>
+		<h6 class="text-muted-foreground max-w-full text-xs text-wrap md:text-lg">
 			- (of a building or other area) provide lodging or sufficient space for.
 		</h6>
-		<h6 class="text-muted-foreground text-md">- fit in with the wishes or needs of.</h6>
+		<h6 class="text-muted-foreground text-xs md:text-lg">- fit in with the wishes or needs of.</h6>
 	</div>
 
 	{#if correctSpelling}
@@ -45,6 +47,5 @@
 	{:else}
 		<SpellInput handleSubmitRoot={handleSubmit} />
 	{/if}
-
 	<PerviousSubmissions {previousSubmissions} />
 </div>

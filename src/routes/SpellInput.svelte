@@ -71,4 +71,10 @@
 
 <SpellRow word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord} {cursorIndex} />
 
-<Button type="submit" class="w-48 self-end" onclick={() => handleSubmit(word)}>Check</Button>
+<div class="flex w-[360px] max-w-full justify-end md:w-[600px]">
+	<Button
+		type="submit"
+		class="w-32 self-end text-xs md:w-48 md:text-sm"
+		onclick={() => handleSubmit(word)}>Check</Button
+	>
+</div>

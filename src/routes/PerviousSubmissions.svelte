@@ -16,35 +16,21 @@
 			.slice(0, amountToShow)
 			.reduce((prev, cur) => (cur.length > prev ? cur.length : prev), 0)
 	);
-
-	// $effect(() => {
-	// 	const longestSubm = previousSubmissions
-	// 		.slice(amountToShow)
-	// 		.reduce((prev, cur) => (cur.length > prev ? cur.length : prev), 0);
-
-	// 	for (let i = 0; i < renderedSubmissions.slice(amountToShow).length; i++) {
-	// 		const row = renderedSubmissions[i];
-
-	// 		while (row.length > 0 && row[row.length - 1].char === ' ') {
-	// 			row.pop();
-	// 		}
-
-	// 		while (row.length < longestSubm) {
-	// 			row.push({ char: ' ', type: 'unchecked' });
-	// 		}
-	// 	}
-	// });
 </script>
 
 {#if previousSubmissions.length > 0}
-	<div class="flex w-full flex-col gap-6">
-		<Separator />
-		{#if previousSubmissions.length > 2}
-			<div class="flex w-full flex-row items-center justify-end gap-2">
-				<Label for="showall">Show All Submissions</Label>
-				<Switch bind:checked={showAll} id="showall" />
-			</div>
-		{/if}
+	<div class="flex w-full flex-col items-center gap-6">
+		<div class="flex w-[600px] max-w-[80svw] flex-col gap-6">
+			<Separator class="mx-auto" />
+			{#if previousSubmissions.length > 2}
+				<div
+					class="text-muted-foreground flex w-full flex-row items-center justify-end gap-2 text-sm md:text-lg"
+				>
+					<Label for="showall">Show All Submissions</Label>
+					<Switch bind:checked={showAll} id="showall" />
+				</div>
+			{/if}
+		</div>
 		{#each previousSubmissions.slice(0, amountToShow) as subm (subm)}
 			<div animate:flip={{ duration: 200 }} transition:fade={{ duration: 200 }}>
 				<SpellRow word={subm} minSize={longestSubmission} />
