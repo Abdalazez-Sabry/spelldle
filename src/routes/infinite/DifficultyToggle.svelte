@@ -17,7 +17,7 @@
 	}
 </script>
 
-<div class="just-between flex w-full max-w-[400px] flex-row justify-between">
+<div class="just-between flex w-full max-w-[400px] flex-row justify-between px-2">
 	<h6 class="text-muted-foreground text-lg">Difficulty:</h6>
 	<ToggleGroup
 		class="just-between flex flex-row gap-10"

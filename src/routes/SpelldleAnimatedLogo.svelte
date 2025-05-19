@@ -48,7 +48,7 @@
 				spell.type == 'correct' && 'bg-green-500',
 				spell.type == 'wrongPosition' && 'bg-orange-500',
 				i == 0 && 'bg-accent text-background z-0 ',
-				'z-10 flex h-[2.7rem] w-[2.7rem]  items-center justify-center rounded-lg border border-gray-400 text-3xl font-semibold opacity-0 md:h-[4rem] md:w-[4rem] md:text-5xl md:font-bold'
+				'z-10 flex h-[2.4rem] w-[2.4rem]  items-center justify-center rounded-lg border border-gray-400 text-2xl font-semibold opacity-0 md:h-[4rem] md:w-[4rem] md:text-5xl md:font-bold'
 			)}
 		>
 			{spell.char}

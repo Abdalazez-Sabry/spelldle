@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, Button as button } from '$lib/components/ui/button';
-	import { Input as input } from '$lib/components/ui/input';
+	import { Input } from '$lib/components/ui/input';
 	import { InputOTP, InputOTPGroup, InputOTPSlot } from '$lib/components/ui/input-otp';
 	import InputOtpGroup from '$lib/components/ui/input-otp/input-otp-group.svelte';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
@@ -36,9 +36,15 @@
 		const el = document.activeElement;
 		if (el instanceof HTMLElement) el.blur();
 		isTouch = window.matchMedia('(pointer: coarse)').matches;
+		if (isTouch) {
+			keybaordOpenerInput?.focus();
+		}
 	});
 
 	function handleKey(e: KeyboardEvent) {
+		if (isTouch) {
+			return;
+		}
 		if (e.ctrlKey || e.metaKey || e.altKey) {
 			return;
 		}
@@ -97,6 +103,16 @@
 			<Flashlight />
 		</Button>
 	</Tooltip>
+	<input
+		type="text"
+		bind:this={keybaordOpenerInput}
+		bind:value={word}
+		oninput={(inp) => {
+			word = inp.currentTarget.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
+			inp.preventDefault();
+		}}
+		class="absolute -left-100 h-0"
+	/>
 	{#if isTouch}
 		<Tooltip text="Open keyboard">
 			<Button
@@ -108,7 +124,6 @@
 			</Button>
 		</Tooltip>
 	{/if}
-	<input bind:this={keybaordOpenerInput} class="invisible absolute m-0 h-0 w-0 p-0" />
 	<Tooltip text="Check Spelling (Enter)">
 		<Button variant="icon" class="  self-end [&_svg]:size-10" onclick={() => handleSubmit(word)}>
 			<CornerDownLeft />
