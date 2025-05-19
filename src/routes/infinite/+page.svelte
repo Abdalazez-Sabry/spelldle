@@ -15,12 +15,12 @@
 	import { onMount } from 'svelte';
 	import { pushState } from '$app/navigation';
 	import { ToggleGroup, ToggleGroupItem } from '$lib/components/ui/toggle-group';
-	import { getInfiniteWord, type Difficulty } from '$lib/spelldle';
+	import { getInfiniteWord, type Difficulty, type WordInfo } from '$lib/spelldle';
 	import DifficultyToggle from './DifficultyToggle.svelte';
 
 	let correctSpelling = $state(false);
 	let previousSubmissions: SpellCharType[][] = $state([]);
-	let infiniteWord: string | null = $state(null);
+	let wordInfo: Promise<WordInfo> | null = $state(null);
 
 	const POSSIBLE_DIFFICULTIES = new Set(['easy', 'medium', 'hard']);
 	let difficulty = $state('');
@@ -30,11 +30,11 @@
 		if (!POSSIBLE_DIFFICULTIES.has(difficulty)) {
 			difficulty = 'easy';
 		}
-		infiniteWord = getInfiniteWord(difficulty as Difficulty);
+		wordInfo = getInfiniteWord(difficulty as Difficulty);
 	});
 
-	function getNextWord() {
-		infiniteWord = getInfiniteWord(difficulty as Difficulty);
+	async function getNextWord() {
+		wordInfo = getInfiniteWord(difficulty as Difficulty);
 		previousSubmissions = [];
 		correctSpelling = false;
 	}
@@ -56,24 +56,32 @@
 <DifficultyToggle bind:difficulty />
 
 <Separator class="w-full max-w-[520px]" />
-{#if infiniteWord}
-	<div class="flex flex-col items-center gap-10" transition:fade={{ duration: 200 }}>
-		<SpellWordCard targetSpelling={infiniteWord} bind:correctSpelling bind:previousSubmissions />
-		{#if correctSpelling}
-			<div class="flex flex-col items-center gap-2" transition:slide={{ duration: 200 }}>
-				<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">
-					Correct <PartyPopper class="size-10 md:size-15" />
-				</h5>
-				<Button
-					variant="default"
-					class=" hover:text-accent text-2xl [&_svg]:size-5"
-					{@attach (el: any) => {
-						setTimeout(() => el.focus(), 200);
-					}}
-					onclick={getNextWord}>Next Word<CircleChevronLeft /></Button
-				>
-			</div>
-		{/if}
-		<PerviousSubmissions {previousSubmissions} />
-	</div>
-{/if}
+{#await wordInfo}
+	<div>loading..</div>
+{:then info}
+	{#if info}
+		<div class="flex flex-col items-center gap-10" transition:fade={{ duration: 200 }}>
+			<SpellWordCard targetInfo={info} bind:correctSpelling bind:previousSubmissions />
+			{#if correctSpelling}
+				<div class="flex flex-col items-center gap-2" transition:slide={{ duration: 200 }}>
+					<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">
+						Correct <PartyPopper class="size-10 md:size-15" />
+					</h5>
+					<Button
+						variant="default"
+						class=" hover:text-accent text-2xl [&_svg]:size-5"
+						{@attach (el: any) => {
+							setTimeout(() => el.focus(), 200);
+						}}
+						onclick={getNextWord}>Next Word<CircleChevronLeft /></Button
+					>
+				</div>
+			{/if}
+			<PerviousSubmissions {previousSubmissions} />
+		</div>
+	{:else}
+		<div>loading..</div>
+	{/if}
+{:catch}
+	<div>an error occured</div>
+{/await}

@@ -27,17 +27,21 @@
 	<h1 class="  text-7xl font-bold">Daily</h1>
 </div>
 <Separator class="w-full max-w-[520px]" />
-<div class="flex flex-col items-center gap-10">
-	<SpellWordCard targetSpelling={getDailyWord()} bind:correctSpelling bind:previousSubmissions />
-	{#if correctSpelling}
-		<div class="flex flex-col items-center gap-2" transition:slide={{ duration: 200 }}>
-			<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">
-				Correct <PartyPopper class="size-10 md:size-15" />
-			</h5>
-			<Button variant="link" href="/" class=" text-lg [&_svg]:size-5"
-				><CircleChevronLeft />Go To Back Home Page</Button
-			>
-		</div>
-	{/if}
-	<PerviousSubmissions {previousSubmissions} />
-</div>
+{#await getDailyWord()}
+	<div>loading..</div>
+{:then wordInfo}
+	<div class="flex flex-col items-center gap-10">
+		<SpellWordCard targetInfo={wordInfo} bind:correctSpelling bind:previousSubmissions />
+		{#if correctSpelling}
+			<div class="flex flex-col items-center gap-2" transition:slide={{ duration: 200 }}>
+				<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">
+					Correct <PartyPopper class="size-10 md:size-15" />
+				</h5>
+				<Button variant="link" href="/" class=" text-lg [&_svg]:size-5"
+					><CircleChevronLeft />Go To Back Home Page</Button
+				>
+			</div>
+		{/if}
+		<PerviousSubmissions {previousSubmissions} />
+	</div>
+{/await}
