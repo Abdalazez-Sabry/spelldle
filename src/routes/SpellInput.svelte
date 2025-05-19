@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
+	import { Button, Button as button } from '$lib/components/ui/button';
 	import { Input as input } from '$lib/components/ui/input';
 	import { InputOTP, InputOTPGroup, InputOTPSlot } from '$lib/components/ui/input-otp';
 	import InputOtpGroup from '$lib/components/ui/input-otp/input-otp-group.svelte';
@@ -9,6 +9,8 @@
 	import { onMount } from 'svelte';
 	import SpellRow, { type SpellCharType } from './SpellRow.svelte';
 	import { toUncheckedSpellChar } from '$lib/utils';
+	import { CornerDownLeft } from '@lucide/svelte';
+	import { Tooltip } from '$lib/components/ui/tooltip';
 
 	const { handleSubmitRoot }: { handleSubmitRoot: (submitted: string) => void } = $props();
 
@@ -72,9 +74,9 @@
 <SpellRow word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord} {cursorIndex} />
 
 <div class="flex w-[360px] max-w-full justify-end md:w-[600px]">
-	<Button
-		type="submit"
-		class="w-32 self-end text-xs md:w-48 md:text-sm"
-		onclick={() => handleSubmit(word)}>Check</Button
-	>
+	<Tooltip text="Check Spelling">
+		<Button variant="icon" class="  self-end [&_svg]:size-10" onclick={() => handleSubmit(word)}>
+			<CornerDownLeft />
+		</Button>
+	</Tooltip>
 </div>

@@ -8,13 +8,15 @@
 <main class="flex min-h-svh max-w-svw flex-col items-center justify-center gap-10 pt-10">
 	<!-- <h1 class=" text-7xl font-bold">Spelldle</h1> -->
 	<SpelldleAnimatedLogo />
-	<div class="flex flex-col items-center justify-center gap-10">
-		<h4 class="text-4xl">Choose Mode</h4>
+	<div class="flex flex-col items-center justify-center gap-4 px-2">
+		<h4 class="text-2xl md:text-4xl">Choose Mode</h4>
 		<a href="/daily">
-			<Button variant="link" class="text-3xl text-white">Daily Spell</Button>
+			<Button variant="link" class="text-xl text-white md:text-3xl" data-direction="backword"
+				>Daily</Button
+			>
 		</a>
 		<a href="/infinite">
-			<Button variant="link" class="text-3xl text-white">Infinite Spell</Button>
+			<Button variant="link" class="text-xl text-white md:text-3xl">Infinite</Button>
 		</a>
 	</div>
 </main>

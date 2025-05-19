@@ -19,9 +19,9 @@
 			const _ = currentIndex;
 			const spans = Array.from(el.children) as HTMLElement[];
 
-			const tl = gsap.timeline({ repeatDelay: 0.5 });
+			const tl = gsap.timeline();
 
-			tl.set(spans, { opacity: 0 });
+			tl.set(spans, { opacity: 0, delay: 0.2 });
 
 			spans.forEach((span) => {
 				tl.set(span, {}).to(span, { opacity: 1, duration: WRITE_DURATION });
@@ -42,15 +42,17 @@
 	}
 </script>
 
-<h1 class=" flex flex-row gap-0.5 font-bold" {@attach writeAnimation}>
+<h1
+	class=" flex flex-row flex-wrap items-center justify-center gap-0.5 font-bold"
+	{@attach writeAnimation}
+>
 	{#each evaluated as spell, i (i)}
 		<span
-			transition:scale
 			class={cn(
 				spell.type == 'correct' && 'bg-green-500',
 				spell.type == 'wrongPosition' && 'bg-orange-500',
 				i == 0 && 'bg-accent text-background z-0 ',
-				'z-10 flex h-[3rem] w-[3rem]  items-center justify-center rounded-lg border border-gray-400 text-2xl font-semibold opacity-0 md:font-bold xl:h-[4rem] xl:w-[4rem] xl:text-5xl'
+				'z-10 flex h-[2.7rem] w-[2.7rem]  items-center justify-center rounded-lg border border-gray-400 text-3xl font-semibold opacity-0 md:h-[4rem] md:w-[4rem] md:text-5xl md:font-bold'
 			)}
 		>
 			{spell.char}
