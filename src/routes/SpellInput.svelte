@@ -136,11 +136,19 @@
 		oninput={(inp) => {
 			word = inp.currentTarget.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
 			inp.preventDefault();
-			const spellInputElement = document.getElementById('touch-scroll-to');
-			spellInputElement?.scrollIntoView({
-				behavior: 'smooth',
-				block: 'center'
-			});
+			const touchScrollTo = document.getElementById('touch-scroll-to');
+			if (touchScrollTo) {
+				touchScrollTo.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center'
+				});
+			} else {
+				const spellInputElement = document.getElementById('spell-input');
+				spellInputElement?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center'
+				});
+			}
 		}}
 		class="absolute -left-100 h-0"
 	/>
