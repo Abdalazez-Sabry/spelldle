@@ -13,7 +13,7 @@
 
 <Tooltip text="Listen To The Word (space)">
 	<Button
-		class="text-muted-foreground text-xl md:text-3xl [&_svg]:size-10"
+		class="text-muted-foreground active:text-accent text-xl md:text-3xl [&_svg]:size-10"
 		variant="ghost"
 		onclick={playAudio}
 	>
