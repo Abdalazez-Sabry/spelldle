@@ -7,7 +7,7 @@
 	import { flip } from 'svelte/animate';
 	import { fade, fly, scale, slide } from 'svelte/transition';
 	import { Button } from '$lib/components/ui/button';
-	import type { WordInfo } from '$lib/spelldle';
+	import type { WordInfo } from '$lib/api';
 	import AudtioPlayer from './AudtioPlayer.svelte';
 	import { onMount } from 'svelte';
 
@@ -62,7 +62,7 @@
 <div
 	class="flex w-[100svw] flex-col items-center justify-center gap-10 px-2 md:w-[80svw] lg:w-[70svw]"
 >
-	<AudtioPlayer audioUrl={targetInfo.audio} {playAudio} />
+	<AudtioPlayer {playAudio} />
 
 	<div class="flex max-w-[80%] flex-col items-start gap-2 text-wrap">
 		<h4 class="text-muted-foreground text-lg md:text-xl">Definitions:</h4>

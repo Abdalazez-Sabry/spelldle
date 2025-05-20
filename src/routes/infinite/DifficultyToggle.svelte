@@ -17,10 +17,12 @@
 	}
 </script>
 
-<div class="just-between flex w-full max-w-[400px] flex-row justify-between px-2">
+<div
+	class="flex flex-col items-center justify-center gap-5 px-2 sm:flex-row md:w-[400px] md:gap-10"
+>
 	<h6 class="text-muted-foreground text-lg">Difficulty:</h6>
 	<ToggleGroup
-		class="just-between flex flex-row gap-10"
+		class="just-between flex flex-row gap-2 md:gap-10"
 		bind:value={difficulty}
 		type="single"
 		onValueChange={changeDifficulty}

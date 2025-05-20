@@ -1,24 +1,25 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
+	import Tooltip from '$lib/components/ui/tooltip/Tooltip.svelte';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
-	let audio: HTMLAudioElement;
 
-	const { audioUrl, playAudio }: { audioUrl: string; playAudio: () => void } = $props();
+	const { playAudio }: { playAudio: () => void } = $props();
 
 	onMount(() => {
-		audio.play();
+		playAudio();
 	});
 </script>
 
-<Button
-	class="text-muted-foreground text-xl md:text-3xl [&_svg]:size-10"
-	variant="ghost"
-	onclick={playAudio}
->
-	<span class="inline-block size-10">
-		<Icon icon="material-symbols:play-circle-outline" />
-	</span>
-	Listen Again
-</Button>
-<audio src={audioUrl} bind:this={audio}></audio>
+<Tooltip text="Listen To The Word (space)">
+	<Button
+		class="text-muted-foreground text-xl md:text-3xl [&_svg]:size-10"
+		variant="ghost"
+		onclick={playAudio}
+	>
+		<span class="inline-block size-10">
+			<Icon icon="material-symbols:play-circle-outline" />
+		</span>
+		Listen Again
+	</Button>
+</Tooltip>

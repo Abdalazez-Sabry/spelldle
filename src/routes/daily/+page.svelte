@@ -8,7 +8,7 @@
 	import PerviousSubmissions from '../PerviousSubmissions.svelte';
 	import type { SpellCharType } from '../SpellRow.svelte';
 	import { scale, slide } from 'svelte/transition';
-	import { getDailyWord } from '$lib/spelldle';
+	import { getDailyWord } from '$lib/api';
 
 	let correctSpelling = $state(false);
 	let previousSubmissions: SpellCharType[][] = $state([]);
@@ -45,5 +45,6 @@
 		<PerviousSubmissions {previousSubmissions} />
 	</div>
 {:catch e}
+	<div>an error occured</div>
 	<div>{e}</div>
 {/await}

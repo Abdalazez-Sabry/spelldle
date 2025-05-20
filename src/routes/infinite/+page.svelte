@@ -15,7 +15,7 @@
 	import { onMount } from 'svelte';
 	import { pushState } from '$app/navigation';
 	import { ToggleGroup, ToggleGroupItem } from '$lib/components/ui/toggle-group';
-	import { getInfiniteWord, type Difficulty, type WordInfo } from '$lib/spelldle';
+	import { getInfiniteWord, type Difficulty, type WordInfo } from '$lib/api';
 	import DifficultyToggle from './DifficultyToggle.svelte';
 
 	let correctSpelling = $state(false);
@@ -100,6 +100,7 @@
 	{:else}
 		<div>loading..</div>
 	{/if}
-{:catch}
+{:catch e}
 	<div>an error occured</div>
+	<div>{e}</div>
 {/await}

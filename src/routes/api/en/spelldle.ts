@@ -1,9 +1,7 @@
-import { dailyWords, easyWords, hardWords, mediumWords } from "./words";
+import type { WordInfo } from "$lib/api";
 
-export type Difficulty = "easy" | "medium" | "hard"
-
-
-const API_BASE = "https://api.dictionaryapi.dev/api/v2/entries/en"
+export const MAX_NUMBER_OF_TRIES = 20
+export const API_BASE = "https://api.dictionaryapi.dev/api/v2/entries/en"
 
 export type DictionaryApiResponse = {
     word: string;
@@ -34,13 +32,9 @@ export type DictionaryApiResponse = {
     sourceUrls?: string[];
 }[];
 
-export type WordInfo = {
-    word: string,
-    audio: string,
-    definitions: string[]
-}
 
-async function randomSelection(
+
+export async function randomSelection(
     arrayLength: number,
     seed?: string,
 ): Promise<number> {
@@ -72,7 +66,7 @@ async function randomSelection(
 }
 
 
-function extractWordData(response: DictionaryApiResponse): WordInfo | null {
+export function extractWordData(response: DictionaryApiResponse): WordInfo | null {
     if (!response || response.length === 0) return null;
 
     const entry = response[0];
@@ -107,35 +101,6 @@ function extractWordData(response: DictionaryApiResponse): WordInfo | null {
         definitions,
     };
 }
-
-export async function getDailyWord(): Promise<WordInfo> {
-    let tryCounter = 0
-
-    while (true) {
-        const wordIndex = await randomSelection(dailyWords.length, new Date().toDateString() + tryCounter)
-        const todaysWord = dailyWords[wordIndex]
-        const res = await fetch(`${API_BASE}/${todaysWord}`)
-        if (res.status == 200) {
-            const result = extractWordData(await res.json())
-            if (result) {
-                return result
-            }
-        }
-    }
-}
-
-export async function getInfiniteWord(difficulty: Difficulty): Promise<WordInfo> {
-    const arr = difficulty == "easy" ? easyWords : difficulty == "medium" ? mediumWords : hardWords
-
-    while (true) {
-        const wordIndex = await randomSelection(arr.length)
-        const todaysWord = arr[wordIndex]
-        const res = await fetch(`${API_BASE}/${todaysWord}`)
-        if (res.status == 200) {
-            const result = extractWordData(await res.json())
-            if (result) {
-                return result
-            }
-        }
-    }
+export async function sleep(amount: number = 10) {
+    return new Promise((res, rej) => setTimeout(() => { res("") }, 10))
 }
