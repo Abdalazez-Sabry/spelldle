@@ -4,7 +4,7 @@
 	import { Tooltip } from '$lib/components/ui/tooltip';
 	import SpelldleAnimatedLogo from '../SpelldleAnimatedLogo.svelte';
 	import SpellWordCard from '../SpellWordCard.svelte';
-	import { ChevronLeft, CircleChevronLeft, PartyPopper } from '@lucide/svelte';
+	import { ChevronLeft, CircleChevronLeft, CircleChevronRight, PartyPopper } from '@lucide/svelte';
 	import PerviousSubmissions from '../PerviousSubmissions.svelte';
 	import type { SpellCharType } from '../SpellRow.svelte';
 	import { fade, scale, slide } from 'svelte/transition';
@@ -15,8 +15,10 @@
 	import { onMount } from 'svelte';
 	import { pushState } from '$app/navigation';
 	import { ToggleGroup, ToggleGroupItem } from '$lib/components/ui/toggle-group';
-	import { getInfiniteWord, type Difficulty, type WordInfo } from '$lib/api';
+	import { getInfiniteWord, type WordInfo } from '$lib/api';
 	import DifficultyToggle from './DifficultyToggle.svelte';
+
+	type Difficulty = 'easy' | 'medium' | 'hard';
 
 	let correctSpelling = $state(false);
 	let previousSubmissions: SpellCharType[][] = $state([]);
@@ -90,7 +92,7 @@
 						<Button
 							variant="default"
 							class=" hover:text-accent text-2xl [&_svg]:size-5"
-							onclick={getNextWord}>Next Word<CircleChevronLeft /></Button
+							onclick={getNextWord}>Next Word<CircleChevronRight /></Button
 						>
 					</Tooltip>
 				</div>
