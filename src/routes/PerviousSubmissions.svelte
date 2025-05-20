@@ -21,7 +21,7 @@
 {#if previousSubmissions.length > 0}
 	<div class="flex w-full flex-col items-center gap-6 pb-20">
 		<div class="flex w-[600px] max-w-[80svw] flex-col gap-6">
-			<Separator class="mx-auto" />
+			<Separator class="mx-auto" id="touch-scroll-to" />
 			{#if previousSubmissions.length > 2}
 				<div
 					class="text-muted-foreground flex w-full flex-row items-center justify-end gap-2 text-sm md:text-lg"

@@ -60,6 +60,12 @@
 		if (e.key.length === 1 && /^[A-Za-z]$/.test(e.key) && word.length < MAX_WORD_SIZE) {
 			// insert at cursor
 			word = word.slice(0, cursorIndex) + e.key.toUpperCase() + word.slice(cursorIndex);
+			const audioElement = document.getElementById('play-word');
+			audioElement?.scrollIntoView({
+				block: 'start',
+
+				behavior: 'smooth'
+			});
 			cursorIndex += 1;
 		} else if (e.key === 'Escape') {
 			revealAnswer();
@@ -91,11 +97,25 @@
 			word = '';
 			cursorIndex = 0;
 			handleSubmitRoot(toCheck);
+			if (isTouch) {
+				setTimeout(() => {
+					const spellInputElement = document.getElementById('touch-scroll-to');
+					spellInputElement?.scrollIntoView({
+						block: 'center',
+
+						behavior: 'smooth'
+					});
+				}, 200);
+			}
 		}
 	}
 </script>
 
-<SpellRow word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord} {cursorIndex} />
+<SpellRow
+	word={word.length > 0 ? toUncheckedSpellChar(word) : placeholderWord}
+	{cursorIndex}
+	id="spell-input"
+/>
 
 <div class="flex w-[200px] max-w-full justify-between md:w-[320px]">
 	<Tooltip text="Reveal Answer (Esc)">
@@ -116,6 +136,11 @@
 		oninput={(inp) => {
 			word = inp.currentTarget.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
 			inp.preventDefault();
+			const spellInputElement = document.getElementById('touch-scroll-to');
+			spellInputElement?.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center'
+			});
 		}}
 		class="absolute -left-100 h-0"
 	/>

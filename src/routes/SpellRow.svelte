@@ -10,14 +10,15 @@
 	const {
 		word,
 		cursorIndex,
-		minSize
-	}: { word: SpellCharType[]; cursorIndex?: number; minSize?: number } = $props();
+		minSize,
+		id
+	}: { word: SpellCharType[]; cursorIndex?: number; minSize?: number; id?: string } = $props();
 </script>
 
 <!-- {#if word.length == 0}
 	<span class="text-xl">Your Can Start Typing Now:</span>
 {/if} -->
-<div class="flex w-full flex-wrap justify-center gap-0.5">
+<div class="flex w-full flex-wrap justify-center gap-0.5" {id}>
 	{#each word as spell, i (i)}
 		<span
 			animate:flip={{ duration: 200 }}

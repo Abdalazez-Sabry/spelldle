@@ -26,6 +26,15 @@
 		const target = targetInfo.word.toLocaleUpperCase();
 		if (toCheck == target) {
 			correctSpelling = true;
+			setTimeout(() => {
+				const correctContainer = document.getElementById('correct-container');
+
+				correctContainer?.scrollIntoView({
+					block: 'center',
+
+					behavior: 'smooth'
+				});
+			}, 200);
 			return;
 		}
 

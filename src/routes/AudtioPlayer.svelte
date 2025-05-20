@@ -16,6 +16,7 @@
 		class="text-muted-foreground active:text-accent text-xl md:text-3xl [&_svg]:size-10"
 		variant="ghost"
 		onclick={playAudio}
+		id="play-word"
 	>
 		<span class="inline-block size-10">
 			<Icon icon="material-symbols:play-circle-outline" />

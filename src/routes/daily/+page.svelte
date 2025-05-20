@@ -33,7 +33,11 @@
 	<div class="flex flex-col items-center gap-10">
 		<SpellWordCard targetInfo={wordInfo} bind:correctSpelling bind:previousSubmissions />
 		{#if correctSpelling}
-			<div class="flex flex-col items-center gap-2" transition:slide={{ duration: 200 }}>
+			<div
+				class="flex flex-col items-center gap-2"
+				transition:slide={{ duration: 200 }}
+				id="correct-container"
+			>
 				<h5 class="flex flex-row items-center gap-5 text-5xl md:text-6xl">
 					Correct <PartyPopper class="size-10 md:size-15" />
 				</h5>
