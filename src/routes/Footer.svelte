@@ -16,7 +16,7 @@
 		>
 		and was made by <Button
 			variant="link"
-			href="https://abdalazez.vercel.app"
+			href="https://github.com/Abdalazez-Sabry"
 			target="_blank"
 			class="flex gap-0.5">Abdalazez <ExternalLink /></Button
 		>
